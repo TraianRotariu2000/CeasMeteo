@@ -6,6 +6,6 @@
 #### In cazul in care un parametru masurat se regaseste in limitele setate, se va aprinde cate un LED verde corespunzator acestuia. Depasirea limitelor setate unui parametru va fi semnalata prin aprinderea unui LED rosu. Daca LED-urile ofera doar o imagine calitativa a rezultatelor masuratorilor, pe monitorul serial poate fi consultata o detaliere a rezultatelor masuraturilor. Vor fi afisate: temperatura (masurata in grade Celsius) si umiditatea relativa(masurata in procente) din incinta, momentul la care s-a realizat masuratoarea (data, ziua saptamanii, ora), respectiv limitele de temperatura si umiditate setate de utilizator. O scurta prezentare a modului de functionare poate fi consultata in urmatorul videoclip:
 <!-- blank line -->
 <figure class="video_container">
-  <iframe src="https://drive.google.com/file/d/0B6m34D8cFdpMZndKTlBRU0tmczg/preview" frameborder="0" allowfullscreen="true"> </iframe>
+  <iframe src="https://www.youtube.com/watch?v=u2lJJYeJQEE" frameborder="0" allowfullscreen="true"> </iframe>
 </figure>
 <!-- blank line -->
