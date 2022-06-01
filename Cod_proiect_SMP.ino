@@ -1,4 +1,4 @@
-  #include <RTClib.h>
+#include <RTClib.h>
 #include <dht.h>
 
 #define LED1_TEMP 12
@@ -6,14 +6,12 @@
 #define LED1_UMID 9
 #define LED2_UMID 10
 #define pin_senzor A0
-
 //default parametrii vor fi initializati cu capetele domeniului de masurare al senzorului DHT11
 float lim_sup_temp=60;
 float lim_inf_temp=0;
 float lim_sup_umid=90;
 float lim_inf_umid=20;
 
-float aux;
 RTC_DS3231 rtc;
 dht senzor;
 char zileleSapt[7][12] = {
@@ -27,6 +25,7 @@ char zileleSapt[7][12] = {
 };
  
 void setup(){
+  float aux=-1;
   pinMode(LED1_TEMP, OUTPUT);
   pinMode(LED2_TEMP, OUTPUT);
   pinMode(LED1_UMID, OUTPUT);
@@ -39,35 +38,35 @@ void setup(){
   else{
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   } 
-  Serial.setTimeout(10000);
+  Serial.setTimeout(5000);
   Serial.println("Introduceti temperatura minima (grade Celsius):");
   aux = Serial.parseFloat();
-  if(aux <=60 && aux >= 0)
+  if(aux <=60 && aux >= 0.01)
   {
     lim_inf_temp = aux;
   }
-  delay(10000);
+  delay(5000);
   Serial.println("Introduceti temperatura maxima (grade Celsius):");
   aux=Serial.parseFloat();
-  if(aux <=60 && aux >= 0 && lim_sup_temp >= lim_inf_temp)
+  if(aux <=60 && aux >= 0.01 && aux >= lim_inf_temp)
   {
-    lim_sup_temp=aux;
+    lim_sup_temp = aux;
   }
-  delay(10000);
+  delay(5000);
   Serial.println("Introduceti umiditatea minima (procente):");
   aux = Serial.parseFloat();
   if(aux <=90 && aux >= 20)
   {
     lim_inf_umid = aux;
   }
-  delay(10000);
+  delay(5000);
   Serial.println("Introduceti umiditatea maxima (procente):");
   aux=Serial.parseFloat();
-  if(aux <=90 && aux >= 20 && lim_sup_umid >= lim_inf_umid)
+  if(aux <=90 && aux >= 20 && aux >= lim_inf_umid)
   {
     lim_sup_umid=aux;
   }
-  delay(10000);
+  delay(5000);
   
 }
  
@@ -96,17 +95,17 @@ void loop(){
   Serial.print("Temperatura: ");
   Serial.print(senzor.temperature); 
   Serial.println(" C ");
-  Serial.println("Parametrii de functionare:");
-  Serial.print(" T_min: ");
+  Serial.println("Limitele setate:");
+  Serial.print(" temperatura: ");
   Serial.print(lim_inf_temp);
-  Serial.println(" C ");
-  Serial.print(" T_max: ");
+  Serial.print(" C ");
+  Serial.print(" - ");
   Serial.print(lim_sup_temp);
   Serial.println(" C ");
-  Serial.print(" Humid_min: ");
+  Serial.print(" umiditate: ");
   Serial.print(lim_inf_umid);
-  Serial.println("% ");
-  Serial.print(" Humid_max: ");
+  Serial.print("% ");
+  Serial.print(" - ");
   Serial.print(lim_sup_umid);
   Serial.println("% ");
   Serial.println("\n");
