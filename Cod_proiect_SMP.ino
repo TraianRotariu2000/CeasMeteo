@@ -1,3 +1,4 @@
+#include <EEPROM.h>
 #include <RTClib.h>
 #include <dht.h>
 
@@ -14,7 +15,7 @@ float lim_inf_umid=20;
 
 RTC_DS3231 rtc;
 dht senzor;
-char zileleSapt[7][12] = {
+char zileleSapt[7][4] = {
   "Dum",
   "Lun",
   "Mar",
@@ -23,9 +24,13 @@ char zileleSapt[7][12] = {
   "Vin",
   "Sam"
 };
- 
+void memSave(){
+  
+}
 void setup(){
   float aux=-1;
+  int adr=0;
+  int optiune=0;
   pinMode(LED1_TEMP, OUTPUT);
   pinMode(LED2_TEMP, OUTPUT);
   pinMode(LED1_UMID, OUTPUT);
@@ -38,39 +43,72 @@ void setup(){
   else{
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   } 
-  Serial.setTimeout(5000);
-  Serial.println("Introduceti temperatura minima (grade Celsius):");
-  aux = Serial.parseFloat();
-  if(aux <=60 && aux >= 0.01)
-  {
-    lim_inf_temp = aux;
-  }
-  delay(5000);
-  Serial.println("Introduceti temperatura maxima (grade Celsius):");
-  aux=Serial.parseFloat();
-  if(aux <=60 && aux >= 0.01 && aux >= lim_inf_temp)
-  {
-    lim_sup_temp = aux;
-  }
-  delay(5000);
-  Serial.println("Introduceti umiditatea minima (procente):");
-  aux = Serial.parseFloat();
-  if(aux <=90 && aux >= 20)
-  {
-    lim_inf_umid = aux;
-  }
-  delay(5000);
-  Serial.println("Introduceti umiditatea maxima (procente):");
-  aux=Serial.parseFloat();
-  if(aux <=90 && aux >= 20 && aux >= lim_inf_umid)
-  {
-    lim_sup_umid=aux;
-  }
-  delay(5000);
   
+  Serial.setTimeout(5000);
+  Serial.println("Selectati o actiune sau astepati initializarea sistemului:\n 1.Resetare limite (tastati 1)\n 2.Modificare limite (tastati 2)");
+  optiune=Serial.parseInt();
+  delay(5000);
+  Serial.println(optiune);
+  if(optiune == 1){
+    Serial.println("-------Resetare limite--------- ");
+    EEPROM.put(adr, lim_inf_temp);
+    adr=adr+sizeof(float);
+    EEPROM.put(adr, lim_sup_temp);
+    adr=adr+sizeof(float);
+    EEPROM.put(adr, lim_inf_umid);
+    adr=adr+sizeof(float);
+    EEPROM.put(adr, lim_sup_umid);
+  }
+  else if(optiune==2){
+      Serial.println("-------Setare limite--------- \n Introduceti temperatura minima (grade Celsius):");
+      aux = Serial.parseFloat();
+      if(aux <=60 && aux >= 0.01)
+      {
+        lim_inf_temp = aux;
+        EEPROM.put(adr, lim_inf_temp);
+         adr=adr+sizeof(float);
+      } 
+      delay(5000);
+      Serial.println("Introduceti temperatura maxima (grade Celsius):");
+      aux=Serial.parseFloat();
+      if(aux <=60 && aux >= 0.01 && aux >= lim_inf_temp)
+      {
+        lim_sup_temp = aux;
+        EEPROM.put(adr, lim_sup_temp);
+        adr=adr+sizeof(float);
+      }
+      delay(5000);
+      Serial.println("Introduceti umiditatea minima (procente):");
+      aux = Serial.parseFloat();
+      if(aux <=90 && aux >= 20)
+      {
+        lim_inf_umid = aux;
+        EEPROM.put(adr, lim_inf_umid);
+        adr=adr+sizeof(float);
+      }
+  
+      delay(5000);
+      Serial.println("Introduceti umiditatea maxima (procente):");
+      aux=Serial.parseFloat();
+      if(aux <=90 && aux >= 20 && aux >= lim_inf_umid)
+      {
+        lim_sup_umid=aux;
+        EEPROM.put(adr, lim_sup_umid);
+      }
+  }
+
+  delay(5000);
 }
  
 void loop(){
+  int adr=3*sizeof(float);
+  EEPROM.get(adr, lim_sup_umid);
+  adr=adr-sizeof(float);
+  EEPROM.get(adr, lim_inf_umid);
+  adr=adr-sizeof(float);
+  EEPROM.get(adr, lim_sup_temp);
+  adr=adr-sizeof(float);
+  EEPROM.get(adr, lim_inf_temp);
   DateTime now = rtc.now();
   Serial.print("Data si ora masuratorii: ");
   Serial.print(now.day(), DEC);
@@ -118,7 +156,7 @@ void loop(){
   }
   else{
     digitalWrite(LED2_TEMP, LOW);
-    delay(500); 
+    delay(1000); 
     digitalWrite(LED1_TEMP, HIGH);
     
   }
