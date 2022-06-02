@@ -19,4 +19,16 @@
 #### - Modul RTC DS3231 AT24C32
 #### - conectori, rezistente 220 ohmi, LED-uri rosii si verzi
 #### 
-#### In ceea ce priveste utilizarea placutei Arduino, codul care ruleaza pe aceasta utilizeaza bibliotecile <RTClib.h> si <dht.h> (pentru achizitia datelor de la modulul RTC, respectiv senzorul de temperatura si umiditate) si <EEPROM.h>, biblioteca utilizata pentru stocarea in memoria EEPROM a limitelor setate. Astfel, in cazul in care este intrerupta alimentarea modulului, valorile limitelor nu vor fi pierdute, la  pornirea ulterioara intreruperii acestea vor fi incarcate din memoria EEPROM.
+#### In ceea ce priveste utilizarea placutei Arduino, codul care ruleaza pe aceasta utilizeaza bibliotecile <RTClib.h> si <dht.h> (pentru achizitia datelor de la modulul RTC, respectiv senzorul de temperatura si umiditate) si <EEPROM.h>, biblioteca utilizata pentru stocarea in memoria EEPROM a limitelor setate. Astfel, in cazul in care este intrerupta alimentarea modulului, valorile limitelor nu vor fi pierdute, la  pornirea ulterioara intreruperii acestea vor fi incarcate din memoria EEPROM. 
+#### Controlul LED-urilor este realizat prin comanda digitalWrite() introdusa in instructiuni decizionale care verifica incadrarea parametrilor masurati de senzor in limitele admise.
+
+## Functii
+#### - masurarea temperaturii
+#### - masurarea umiditatii
+#### - monitorizarea incadrarii temperaturii si presiunii in limitele definite de utilizator
+#### - afisarea valorilor datelor achizitionate, aceasta fiind asociata cu momentul de timp la care a fost realizata masuratoarea.
+
+## Proiecte similare
+#### - Proiect 1 ceas cu afisare temperatura si umiditate: https://create.arduino.cc/projecthub/chamathkv/date-time-temperature-and-humidity-display-b05086?ref=tag&ref_id=rtc&offset=1
+#### - Proiect 2 ceas cu afisare temperatura si umiditate: https://create.arduino.cc/projecthub/ahmadordi/clock-without-using-rtc-in-arduino-with-temperature-and-humi-58e76e
+#### - Proiect senzor de temperatura si umiditate: https://create.arduino.cc/projecthub/techno_z/dht11-temperature-humidity-sensor-98b03b
