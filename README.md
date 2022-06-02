@@ -13,10 +13,10 @@
 
 <img src="poze/Proiect_SMP_simul.png" width=800>
 
-### Componentele utilizate pentru implementarea fizica:
-### - Arduino Uno
-### - Senzor de temperatura si umiditate DH11
-### - Modul RTC DS3231 AT24C32
-### - conectori, rezistente 220 ohmi, LED-uri rosii si verzi
-### 
-### In ceea ce priveste utilizarea placutei Arduino, codul care ruleaza pe aceasta utilizeaza bibliotecile <RTClib.h> si <dht.h> (pentru achizitia datelor de la modulul RTC, respectiv senzorul de temperatura si umiditate) si <EEPROM.h>, biblioteca utilizata pentru stocarea in memoria EEPROM a limitelor setate. Astfel, in cazul in care este intrerupta alimentarea modulului, valorile limitelor nu vor fi pierdute, la  pornirea ulterioara intreruperii acestea vor fi incarcate din memoria EEPROM.
+#### Componentele utilizate pentru implementarea fizica:
+#### - Arduino Uno
+#### - Senzor de temperatura si umiditate DH11
+#### - Modul RTC DS3231 AT24C32
+#### - conectori, rezistente 220 ohmi, LED-uri rosii si verzi
+#### 
+#### In ceea ce priveste utilizarea placutei Arduino, codul care ruleaza pe aceasta utilizeaza bibliotecile <RTClib.h> si <dht.h> (pentru achizitia datelor de la modulul RTC, respectiv senzorul de temperatura si umiditate) si <EEPROM.h>, biblioteca utilizata pentru stocarea in memoria EEPROM a limitelor setate. Astfel, in cazul in care este intrerupta alimentarea modulului, valorile limitelor nu vor fi pierdute, la  pornirea ulterioara intreruperii acestea vor fi incarcate din memoria EEPROM.
